@@ -1,5 +1,9 @@
 import edu.duke.*;
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PerimeterAssignmentRunner {
     public double getPerimeter (Shape s) {
@@ -37,7 +41,27 @@ public class PerimeterAssignmentRunner {
 
     public double getLargestSide(Shape s) {
         // Put code here
-        return 0.0;
+        double longestSide = 0;
+        // Add items to a list of explicit point type objects with iterable returned from shape method
+        List<Point> myPoints = new ArrayList<>();
+        for (Point currPt : s.getPoints()) {
+            myPoints.add(currPt);
+        }
+        int listSize = myPoints.size(); 
+        for (int i = 0; i < listSize - 1; i++) {
+            Point currPt = myPoints.get(i);
+            Point nextPt = myPoints.get(i + 1);
+            double pointDistance = currPt.distance(nextPt);
+            // System.out.println(String.format("currPt x,y value of %s & nextPt x,y value of %s has a euclidean distance of %s"), 
+            // currPt, nextPt, pointDistance);
+            if(pointDistance > longestSide){
+                longestSide = pointDistance;
+            }
+        }
+        // This does all points except the first point and last point which closes the shape
+        double lastSide = myPoints.get(0).distance(myPoints.get(myPoints.size() - 1));
+        if (lastSide > longestSide) {longestSide = lastSide;}
+        return longestSide;
     }
 
     public double getLargestX(Shape s) {
@@ -64,7 +88,9 @@ public class PerimeterAssignmentRunner {
         int points = getNumPoints(s);
         System.out.println(String.format("Total points : %d", points));
         double perimeter = getAverageLength(s);
-        System.out.println(String.format("Perimter length : %f", perimeter));
+        System.out.println(String.format("Perimeter average length : %.2f", perimeter));
+        double longestSide = getLargestSide(s);
+        System.out.println(String.format("The largest side from the provided shape is : %.2f", longestSide));
     }
     
     public void testPerimeterMultipleFiles() {
