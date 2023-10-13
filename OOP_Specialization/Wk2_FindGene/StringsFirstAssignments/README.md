@@ -81,6 +81,26 @@ Specifically, you should do the following:
         * The part of the string after an in banana is ana.
         * The part of the string after zoo in forest is forest.
 
+<br>
+
+**`Part 4: Finding Web Links`**
+
+Write a program that reads the lines from the file at this URL location, 
+http://www.dukelearntoprogram.com/course2/data/manylinks.html
+, and prints each URL on the page that is a link to youtube.com. Assume that a link to youtube.com has no spaces in it and would be in the format (where [stuff] represents characters that are not verbatim): “http:[stuff]youtube.com[stuff]”
+
+Here are suggestions to get started.
+
+1. Create a new Java Class named Part4 in the StringsFirstAssignments project and put your code in that class.
+
+2. Use URLResource to read the file at 
+http://www.dukelearntoprogram.com/course2/data/manylinks.html
+ word by word.
+
+3. For each word, check to see if “youtube.com” is in it. 
+    - If it is, find the double quote to the left and right of the occurrence of “youtube.com” to identify the beginning and end of the URL.  
+    - Note, the double quotation mark is a special character in Java. To look for a double quote, look for (\”), since the backslash (\) character indicates we want the literal quotation marks (“) and not the Java character. 
+        * The string you search for would be written “\”” for one double quotation mark.
 
 
 
@@ -91,9 +111,9 @@ Tell the reader (someone who does not know anything about this project)
 all they need to know. The comments should usually include at least:
 ------------------------------------------------------------------------
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS: -->
+PROJECT TITLE: StringsAssignment
+PURPOSE OF PROJECT: Get Accustomed to Java String methods and practical use cases/testing
+VERSION or DATE: 10/13/23
+HOW TO START THIS PROJECT: Have BlueJ (you need Duke's libraries)
+AUTHORS: I wrote the code ... Duke wrote the assignment
+USER INSTRUCTIONS: Take Java OOP Principles on Coursera for Resource availability -->
