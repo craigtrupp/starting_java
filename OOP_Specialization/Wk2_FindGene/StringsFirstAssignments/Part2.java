@@ -39,3 +39,10 @@ public class Part2 {
         System.out.println(String.format("Fourth test returned / Lower test : %s", fourthTestLower));
     }
 }
+
+/* Output
+First test returned : ATGCGBTAA
+Second test returned : 
+Third test returned : 
+Fourth test returned / Lower test : atgctataa
+*/

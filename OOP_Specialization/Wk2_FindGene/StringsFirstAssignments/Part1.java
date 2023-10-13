@@ -31,3 +31,9 @@ public class Part1 {
         System.out.println(String.format("Third test returned : %s", thirdTest));
     }
 }
+
+/* Output
+First test returned : ATGCGBTAA
+Second test returned : 
+Third test returned : 
+*/

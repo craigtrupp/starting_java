@@ -38,11 +38,22 @@ public class Part3 {
         }
         return false;
     }
+    public String lastPart(String stringa, String stringb){
+        if(stringb.indexOf(stringa) > -1){
+            return stringb.substring(stringb.indexOf(stringa) + stringa.length(), stringb.length());
+        }
+        return stringb;
+    }
+    
     public void test(){
         Boolean firstTest = twoOccurrences("by", "A story by Abby Long");
         System.out.println(firstTest);
         Boolean secondTest = twoOccurrences("atg", "ctgtatgta");
         System.out.println(secondTest);
+        String thirdTest = lastPart("an", "banana");
+        System.out.println(String.format("The lastpart check returned : %s", thirdTest));
+        String fourthTest = lastPart("zoo", "forest");
+        System.out.println(String.format("The lastpart check returned : %s", fourthTest));
     }
 }
 
@@ -59,4 +70,8 @@ There were a total of 1 occurence(s) for the substring
 The amount of occurences/length of hash map : 1
 The 1 occurrence was at index positions [4, 7]: 
 false
+
+-- checking lastPart
+The lastpart check returned : ana
+The lastpart check returned : forest
 */
