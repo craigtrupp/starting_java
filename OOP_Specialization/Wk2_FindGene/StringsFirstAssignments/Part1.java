@@ -29,6 +29,8 @@ public class Part1 {
         System.out.println(String.format("Second test returned : %s", secondTest));
         String thirdTest = findSimpleGene("AATGCGBETAATATGGT");
         System.out.println(String.format("Third test returned : %s", thirdTest));
+        String quizString = findSimpleGene("AAATGCCCTAACTAGATTAAGAAACC");
+        System.out.println(String.format("Quiz gene returned : %s", quizString));
     }
 }
 
