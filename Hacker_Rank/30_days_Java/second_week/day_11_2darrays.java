@@ -84,5 +84,11 @@ public class Solution {
             }
         }
         System.out.println(hourGlassTotals);
+        System.out.println(Collections.max(hourGlassTotals)); // this pulls the max value for the array we were pushing values into
     }
 }
+
+// [7, 4, 2, 0, 4, 8, 10, 8, 3, 6, 7, 6, 3, 9, 19, 14] - Output (now should just need to return the highest sum from out loops and indexing of the 2d list for the different rows)
+
+
+// Now just need to get the sum
