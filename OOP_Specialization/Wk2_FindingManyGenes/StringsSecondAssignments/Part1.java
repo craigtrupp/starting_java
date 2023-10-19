@@ -34,6 +34,6 @@ public class Part1 {
         int secondStopCheckTAG = findStopCodon(dna, dna.indexOf("ATG"), "TAG");
         int thridStopCheckTGA = findStopCodon(dna, dna.indexOf("ATG"), "TGA");
         // Return the gene from the "ATG" and the closest stop codon that is a multiple of three away - If none, return empty string
-        return "This is an odd exercise .. we're moving to part two"
+        return "This is an odd exercise .. we're moving to part two";
     }
 }
