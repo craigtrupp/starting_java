@@ -58,7 +58,7 @@ public class Solution {
 }
 
 /*
--- Ok so this is predominantly for me, what we can see here is 
+-- Ok so this is predominantly for me, what we can see here is the generation of pairs and ultimately iterating over each pair to get the highest absolute difference
 [1, 2]
 [1, 5]
 [2, 5]
