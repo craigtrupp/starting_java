@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=Part2
-comment0.text=\n\ Write\ a\ description\ of\ Part2\ here.\n\ \n\ @author\ Craig\n\ @version\ 10/30/23\n
-comment1.params=dna
-comment1.target=double\ cgRatio(java.lang.String)
-comment2.params=
-comment2.target=void\ testCgRatio()
-numComments=3
