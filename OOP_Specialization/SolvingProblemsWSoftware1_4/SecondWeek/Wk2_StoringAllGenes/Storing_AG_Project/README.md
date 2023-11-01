@@ -15,6 +15,7 @@ Specifically, you should do the following:
 
 4. Make sure you test your getAllGenes method.
 
+<br>
 
 ### `Part 2`
 Write the method `cgRatio` that has one String parameter dna, and returns the ratio of C’s and G’s in dna as` a fraction of the entire strand of DNA. For example if the String were “ATGCCATAG,” then cgRatio would return 4/9 or .4444444.
@@ -22,3 +23,26 @@ Write the method `cgRatio` that has one String parameter dna, and returns the ra
 Hint: 9/2 uses integer division because you are dividing an integer by an integer and thus Java thinks you want the result to be an integer. If you want the result to be a decimal number, then make sure you convert one of the integers to a decimal number by changing it to a float. For example, (float) 9/2 is interpreted by Java as 9.0/2 and if one of the numbers is a decimal, then Java assumes you want the result to be a decimal number. Thus (float) 9/2 is 4.5.
 
 Write a method `countCTG` that has one String parameter dna, and returns the number of times the codon CTG appears in dna. 
+
+<br>
+
+### `Part 3`
+Write the void method `processGenes` that has one parameter **sr**, which is a `StorageResource` of strings. This method processes all the strings in sr to find out information about them. Specifically, it should: 
+
+* print all the Strings in sr that are longer than 9 characters
+
+* print the number of Strings in sr that are longer than 9 characters
+
+* print the Strings in sr whose C-G-ratio is higher than 0.35
+
+* print the number of strings in sr whose C-G-ratio is higher than 0.35
+
+* print the length of the longest gene in sr
+
+Write a method `testProcessGenes`. This method will call your processGenes method on different test cases. Think of five DNA strings to use as test cases. These should include: 
+- one DNA string that has some genes longer than 9 characters, 
+- one DNA string that has no genes longer than 9 characters, 
+- one DNA string that has some genes whose C-G-ratio is higher than 0.35, and 
+- one DNA string that has some genes whose C-G-ratio is lower than 0.35. 
+
+Write code in testProcessGenes to call processGenes five times with StorageResources made from each of your five DNA string test cases.
