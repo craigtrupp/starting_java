@@ -14,3 +14,7 @@ The CSV file `exports_small.csv` is a smaller version of the file above with the
     * This method returns a string of information about the country or returns “NOT FOUND” if there is no information about the country. 
     * The format of the string returned is the country, followed by “: “, followed by a list of the countries’ exports, followed by “: “, followed by the countries export value. For example, using the file exports_small.csv and the country Germany, the program returns the string:
         - Germany: motor vehicles, machinery, chemicals: $1,547,000,000,000
+
+3. Write a void method named `listExportersTwoProducts` that has three parameters, `parser is a CSVParser, exportItem1 is a String and exportItem2 is a String`. 
+    * This method prints the names of all the countries that have both `exportItem1` and `exportItem2` as export items. 
+    * For example, using the file exports_small.csv, this method called with the items “gold” and “diamonds” would print the countries [Namibia, South Africa]
