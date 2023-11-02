@@ -77,7 +77,7 @@ public class InitialCSVParser {
         for(CSVRecord record : parser.getRecords()){
             List<String> countryExports = new ArrayList<String>(Arrays.asList(record.get("Exports").split(", ")));
             countryExports = countryExports.stream().map(String::toUpperCase).collect(Collectors.toList()); // toUpperCase makes all capital (tried and tested)
-            System.out.println(String.format("The passed country : %s had listed exports of : ", record.get("Country")) + countryExports);
+            //System.out.println(String.format("The passed country : %s had listed exports of : ", record.get("Country")) + countryExports);
             // The passed country : Germany had listed exports of : [MOTOR VEHICLES, MACHINERY, CHEMICALS] - Example print out
             if(countryExports.contains(exportItemCleaned)){
                 exportCountries++;
@@ -137,6 +137,52 @@ public class InitialCSVParser {
         Namibia $4,597,000,000
         Peru $36,430,000,000
         South Africa $97,900,000,000
+        United States $1,610,000,000,000
+        */
+    }
+    public void quizTester() throws java.text.ParseException, java.io.IOException{
+        // master File Resource
+        FileResource fr = new FileResource();
+        // Question : 3 - exportdata.csv - What is the name of the country that is listed as the third country that exports both gold and diamonds
+        CSVParser parserQuestionThree = fr.getCSVParser();
+        listExportersTwoProducts(parserQuestionThree, "gold", "diamonds");
+        /* - Countries Output
+        Armenia
+        Congo (Democratic Republic of the)
+        Ghana
+        Guinea
+        Namibia
+        South Africa 
+        */
+        // Question : 4 - exportdata.csv - Run your program on the file exportdata.csv. How many countries export gold?
+        CSVParser parserQuestionFour = fr.getCSVParser();
+        System.out.println(String.format("How many countries from exportdata.csv export gold : %d", numberOfExporters(parserQuestionFour, "gold")));
+        // How many countries from exportdata.csv export gold : 29
+        /*
+        Question : 5 - exportdata.csv - un your program on the file exportdata.csv. Call the method countryInfo with the country Nauru. 
+        Which one of the following items is listed as an export from this country?
+        Method returns a string so can simply print in a System.out statement
+        */
+        CSVParser parserQuestionFive = fr.getCSVParser();
+        System.out.println(countryInfo(parserQuestionFive, "Nauru"));
+        /*
+        Passed country : Nauru
+        Nauru: phosphates: $64,000  
+        */
+        /*
+        Question : 6 - exportdata.csv - Question 6
+        Run your program on the file exportdata.csv. What is the name of the second economy (that is, what is listed on the second line of the output) 
+        listed that exports one trillion dollars or more? 
+        Method has a void return type so simply need to call it
+        */
+        CSVParser parserQuestionSix = fr.getCSVParser();
+        bigExporters(parserQuestionSix, "$1,000,000,000,000");
+        /*
+        -- Method Outuput
+        1000000000000
+        China $2,252,000,000,000
+        European Union $2,173,000,000,000
+        Germany $1,547,000,000,000
         United States $1,610,000,000,000
         */
     }
