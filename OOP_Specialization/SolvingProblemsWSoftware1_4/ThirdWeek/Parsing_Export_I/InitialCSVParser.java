@@ -58,8 +58,18 @@ public class InitialCSVParser {
         List<String> exportItemCountries = new ArrayList<String>();
         for(CSVRecord record : parser.getRecords()){
             List<String> exports = new ArrayList<String>(Arrays.asList(record.get("Exports").split(", "))); // take string column value and split to array of strings
-            if(exports.contains(exportItem1Cleaned) && exports.contains(exportItem2Cleaned)){
-                exportItemCountries.add(record.get("Country"));
+            // similar to gold or other products type string ... we need to loop through the strings as well to see if each string for export contains not just the list 
+            //System.out.println(exports + "for country : " + record.get("Country"));
+            Integer individualStringCheck = 0;
+            for(String exportString : exports){
+                if(individualStringCheck == 2){
+                    exportItemCountries.add(record.get("Country"));
+                    System.out.println("Country : " + record.get("Country") + " had exports of : " + exports);
+                    break;
+                }
+                if(exportString.contains(exportItem1Cleaned) || exportString.contains(exportItem2Cleaned)){
+                    individualStringCheck++;
+                }
             }
         }
         if(exportItemCountries.size() == 0){
@@ -79,8 +89,18 @@ public class InitialCSVParser {
             countryExports = countryExports.stream().map(String::toUpperCase).collect(Collectors.toList()); // toUpperCase makes all capital (tried and tested)
             //System.out.println(String.format("The passed country : %s had listed exports of : ", record.get("Country")) + countryExports);
             // The passed country : Germany had listed exports of : [MOTOR VEHICLES, MACHINERY, CHEMICALS] - Example print out
+            // - exportdata.csv has gold generally as a singluar item but also has as : gold and other minerals (need to pluck out a different way)
             if(countryExports.contains(exportItemCleaned)){
                 exportCountries++;
+                continue; // initial check on country to see if gold a singular item in country's exports if so, continue to next country
+            }
+            // loop through exports to validate that no string contains gold ... with other characters included in country's list of string exports
+            for(String exportString: countryExports){
+                if(exportString.contains(exportItemCleaned)){
+                    System.out.println(record.get("Country") + " " + countryExports);
+                    exportCountries++;
+                    break; // break out of for each loop for individual strings in export list as gold found in one of the export strings
+                }
             }
         }
         return exportCountries;
@@ -115,7 +135,7 @@ public class InitialCSVParser {
         */
         // Second test for Products
         CSVParser twoProductsParser = fr.getCSVParser();
-        listExportersTwoProducts(twoProductsParser, "gold", "diamonds");
+        listExportersTwoProducts(twoProductsParser, "fish", "nuts");
         /*
         Namibia
         South Africa        
@@ -145,19 +165,25 @@ public class InitialCSVParser {
         FileResource fr = new FileResource();
         // Question : 3 - exportdata.csv - What is the name of the country that is listed as the third country that exports both gold and diamonds
         CSVParser parserQuestionThree = fr.getCSVParser();
-        listExportersTwoProducts(parserQuestionThree, "gold", "diamonds");
+        listExportersTwoProducts(parserQuestionThree, "fish", "nuts");
         /* - Countries Output
-        Armenia
-        Congo (Democratic Republic of the)
-        Ghana
-        Guinea
-        Namibia
-        South Africa 
+        Country : Guinea-Bissau had exports of : [fish, shrimp, cashews, peanuts, palm kernels, raw and sawn lumber]
+        Country : Micronesia (Federated States of) had exports of : [fish, sakau (kava), betel nuts, black pepper]
+        Country : Panama had exports of : [fruit and nuts, fish, iron and steel waste, wood]
+        Country : Peru had exports of : [copper, gold, lead, zinc, tin, iron ore, molybdenum, silver, crude petroleum and petroleum products, natural gas, coffee, asparagus and other vegetables, fruit, apparel and textiles, fishmeal, fish, chemicals, fabricated metal products and machinery, alloys]
+        Country : Senegal had exports of : [fish, groundnuts (peanuts), petroleum products, phosphates, cotton]
+        Guinea-Bissau
+        Micronesia (Federated States of)
+        Panama
+        Peru
+        Senegal
         */
         // Question : 4 - exportdata.csv - Run your program on the file exportdata.csv. How many countries export gold?
         CSVParser parserQuestionFour = fr.getCSVParser();
         System.out.println(String.format("How many countries from exportdata.csv export gold : %d", numberOfExporters(parserQuestionFour, "gold")));
-        // How many countries from exportdata.csv export gold : 29
+        /*
+        Eritrea [GOLD AND OTHER MINERALS, LIVESTOCK, SORGHUM, TEXTILES, FOOD, SMALL MANUFACTURES] - Special Case where gold is in string but not by itself
+        How many countries from exportdata.csv export gold : 30
         /*
         Question : 5 - exportdata.csv - un your program on the file exportdata.csv. Call the method countryInfo with the country Nauru. 
         Which one of the following items is listed as an export from this country?
