@@ -11,7 +11,9 @@ import org.apache.commons.csv.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-
+import java.util.stream.Collectors;
+import java.util.Locale;
+import java.text.NumberFormat;
 
 public class InitialCSVParser {
     public void fileReader() throws java.io.IOException {
@@ -69,7 +71,32 @@ public class InitialCSVParser {
         }
         
     }
-    public void tester() throws java.io.IOException {
+    public int numberOfExporters(CSVParser parser, String exportItem) throws java.io.IOException {
+        String exportItemCleaned = exportItem.toUpperCase().trim();
+        Integer exportCountries = 0;
+        for(CSVRecord record : parser.getRecords()){
+            List<String> countryExports = new ArrayList<String>(Arrays.asList(record.get("Exports").split(", ")));
+            countryExports = countryExports.stream().map(String::toUpperCase).collect(Collectors.toList()); // toUpperCase makes all capital (tried and tested)
+            System.out.println(String.format("The passed country : %s had listed exports of : ", record.get("Country")) + countryExports);
+            // The passed country : Germany had listed exports of : [MOTOR VEHICLES, MACHINERY, CHEMICALS] - Example print out
+            if(countryExports.contains(exportItemCleaned)){
+                exportCountries++;
+            }
+        }
+        return exportCountries;
+    }
+    public void bigExporters(CSVParser parser, String amount) throws java.io.IOException, java.text.ParseException {
+        Locale locale = Locale.US;
+        Number passedAmount = NumberFormat.getCurrencyInstance(locale).parse(amount);
+        System.out.println(passedAmount); // Prints out value of number (numeric)
+        for(CSVRecord record : parser.getRecords()){
+            Number countryValue = NumberFormat.getCurrencyInstance(locale).parse(record.get("Value (dollars)"));
+            if(countryValue.longValue() >= passedAmount.longValue()){
+                System.out.println(String.format("%s %s", record.get("Country"), record.get("Value (dollars)")));
+            }
+        }
+    }
+    public void tester() throws java.text.ParseException, java.io.IOException {
         FileResource fr = new FileResource();
         CSVParser parser = fr.getCSVParser(); // default is true (so header included)
         // first all for countryInfo test (be sure to pass a new instance of parser for each method - after read the file is blank)
@@ -92,6 +119,25 @@ public class InitialCSVParser {
         /*
         Namibia
         South Africa        
+        */
+        // Next test for numberOfExporters
+        CSVParser exportItemCountries = fr.getCSVParser();
+        System.out.println(String.format("The total countries with gold as a listed export was : %d", numberOfExporters(exportItemCountries, "gold")));
+        // The total countries with gold as a listed export was : 3 - changed this particular method to use toUpperCase just to test the Collectors stream option
+        
+        // Final test for bigExporters method
+        CSVParser bigExportersParser = fr.getCSVParser();
+        bigExporters(bigExportersParser, "$999,999,999");
+        /*
+        999999999
+        Germany $1,547,000,000,000
+        Macedonia $3,421,000,000
+        Malawi $1,332,000,000
+        Malaysia $231,300,000,000
+        Namibia $4,597,000,000
+        Peru $36,430,000,000
+        South Africa $97,900,000,000
+        United States $1,610,000,000,000
         */
     }
 }
